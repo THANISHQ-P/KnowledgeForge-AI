@@ -1,0 +1,96 @@
+.machine-page {
+  padding: 30px;
+  color: white;
+}
+
+/* Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+  flex: 1;
+}
+
+.add-machine-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.add-machine-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Search */
+.machine-search {
+  width: 100%;
+  max-width: 450px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #3b4252;
+  background: #1e293b;
+  color: white;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.machine-search::placeholder {
+  color: #94a3b8;
+}
+
+/* Table */
+.machine-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.machine-table thead {
+  background: #374151;
+}
+
+.machine-table th,
+.machine-table td {
+  padding: 18px;
+  text-align: left;
+}
+
+.machine-table tbody tr {
+  background: #1f2937;
+  border-bottom: 1px solid #374151;
+}
+
+.machine-table tbody tr:hover {
+  background: #273549;
+}
+.view-btn{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:8px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.view-btn:hover{
+    background:#1D4ED8;
+}

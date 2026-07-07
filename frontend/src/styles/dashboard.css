@@ -1,0 +1,23 @@
+.dashboard{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:30px;          /* ← Gap between sections */
+    padding:20px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+.machine-status-card{
+    margin-top:0;
+}
+
+.recent-updates-card{
+    margin-top:0;
+}

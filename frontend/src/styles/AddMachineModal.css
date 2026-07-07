@@ -1,0 +1,76 @@
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:500;
+}
+
+.modal-card{
+    width:520px;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 24px;
+    border-bottom:1px solid #ddd;
+}
+
+.modal-header h2{
+    margin:0;
+}
+
+.modal-header button{
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.modal-body{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    padding:25px;
+}
+
+.modal-body input,
+.modal-body select{
+    padding:12px;
+    font-size:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    padding:20px 25px;
+    border-top:1px solid #ddd;
+}
+
+.cancel-btn{
+    background:#ddd;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.save-btn{
+    background:#1976d2;
+    color:white;
+    border:none;
+    padding:10px 22px;
+    border-radius:8px;
+    cursor:pointer;
+}

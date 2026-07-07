@@ -1,0 +1,111 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* =====================================================
+   APP LAYOUT
+===================================================== */
+
+.app-layout {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.layout-body {
+  flex: 1;
+  display: flex;
+  margin-top: 70px; /* Navbar Height */
+  overflow: hidden;
+}
+
+/* =====================================================
+   PAGE CONTENT
+===================================================== */
+
+.page-content {
+  flex: 1;
+  margin-left: 250px; /* Sidebar Width */
+  width: calc(100% - 250px);
+  height: calc(100vh - 70px);
+
+  padding: 30px;
+
+  background: #0f172a;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  transition: all 0.3s ease;
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.page-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.page-content::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 10px;
+}
+
+.page-content::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1024px) {
+  .page-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    padding: 25px;
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+  .layout-body {
+    margin-top: 70px;
+  }
+
+  .page-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+  }
+}

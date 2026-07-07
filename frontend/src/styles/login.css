@@ -1,0 +1,192 @@
+/* Full Page */
+
+.login-container {
+    background-color: #0F172A;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Login Card */
+
+.login-card {
+    background: #1E293B;
+
+    width: 420px;
+
+    padding: 40px;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Logo */
+
+.logo {
+    color: white;
+
+    font-size: 42px;
+
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+
+.subtitle {
+    color: #94A3B8;
+
+    margin-bottom: 30px;
+}
+
+/* Heading */
+
+.login-title {
+    color: white;
+
+    margin-bottom: 25px;
+}
+
+/* Form */
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+/* Inputs */
+
+.login-form input,
+.login-form select {
+    width: 100%;
+
+    padding: 14px;
+
+    background: #334155;
+
+    color: white;
+
+    border: 1px solid #475569;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+/* Placeholder */
+
+.login-form input::placeholder {
+    color: #CBD5E1;
+}
+
+/* Focus */
+
+.login-form input:focus,
+.login-form select:focus {
+    border-color: #2563EB;
+
+    box-shadow: 0 0 10px rgba(37,99,235,0.4);
+}
+
+/* Button */
+
+.login-form button {
+    padding: 14px;
+
+    background: #2563EB;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* Button Hover */
+
+.login-form button:hover {
+    background: #1D4ED8;
+}
+
+/* Company Name */
+
+.company-name {
+    margin-top: 25px;
+
+    color: #94A3B8;
+
+    font-size: 14px;
+}
+/* Header */
+
+.header{
+    margin-bottom:30px;
+}
+
+/* Smooth animation */
+
+.login-card{
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+.password-wrapper{
+    position:relative;
+    width:100%;
+}
+
+.password-input{
+    width:100%;
+    padding-right:50px !important;
+}
+
+.password-toggle{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#94A3B8;
+    cursor:pointer;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.password-toggle:hover{
+    color:#3B82F6;
+}

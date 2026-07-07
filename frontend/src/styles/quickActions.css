@@ -1,0 +1,58 @@
+.quick-actions{
+
+    background:#1E293B;
+
+    margin-top:30px;
+
+    padding:25px;
+
+    border-radius:14px;
+
+    border:1px solid #334155;
+
+    color:white;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
+}
+
+.quick-actions h2{
+
+    margin-bottom:25px;
+}
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+}
+
+.action-grid button{
+
+    padding:18px;
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.action-grid button:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-4px);
+}

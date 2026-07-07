@@ -1,0 +1,41 @@
+.machine-details {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    background: #0F172A;
+    color: white;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.machine-details h1 {
+    margin-bottom: 30px;
+    font-size: 36px;
+}
+
+.details-card {
+    background: #1E293B;
+    padding: 25px;
+    border-radius: 12px;
+    line-height: 2;
+    margin-top: 20px;
+}
+
+.details-card p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.back-btn {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.back-btn:hover {
+    background: #1D4ED8;
+}

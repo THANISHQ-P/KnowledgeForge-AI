@@ -1,0 +1,42 @@
+.machine-status {
+    background: #1E293B;
+    border-radius: 14px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.machine-status h2 {
+    margin-bottom: 20px;
+}
+
+.status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #334155;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.running {
+    color: #22C55E;
+    font-weight: bold;
+}
+
+.maintenance {
+    color: #FACC15;
+    font-weight: bold;
+}
+
+.offline {
+    color: #EF4444;
+    font-weight: bold;
+}

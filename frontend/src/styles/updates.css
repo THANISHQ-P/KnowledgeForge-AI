@@ -1,0 +1,324 @@
+﻿/* ==========================
+   PAGE
+========================== */
+
+.updates-page{
+    width:100%;
+    padding:30px;
+    box-sizing:border-box;
+}
+
+.updates-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.updates-header h1{
+    font-size:38px;
+    color:#fff;
+    margin:0;
+}
+
+.updates-header p{
+    color:#94A3B8;
+    margin-top:10px;
+    max-width:700px;
+}
+
+.updates-role-badge{
+    background:#2563EB;
+    color:white;
+    padding:10px 18px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* ==========================
+   GRID
+========================== */
+
+.updates-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(480px,1fr));
+    gap:30px;
+    align-items:start;
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.updates-section-card{
+
+    background:#1E293B;
+    border-radius:18px;
+    border:1px solid #334155;
+
+    padding:25px;
+
+    display:flex;
+    flex-direction:column;
+
+    height:auto;
+    min-height:420px;
+
+    overflow:hidden;
+
+    box-sizing:border-box;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.section-head h2{
+    color:white;
+    margin:0;
+    font-size:24px;
+}
+
+.section-head p{
+    color:#94A3B8;
+    margin-top:8px;
+    line-height:1.5;
+}
+
+.section-count{
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#2563EB;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-weight:bold;
+
+}
+
+/* ==========================
+   LIST
+========================== */
+
+.updates-list{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+    margin-top:10px;
+
+}
+
+.updates-list-item{
+
+    background:#0F172A;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    border:1px solid #334155;
+
+}
+
+.updates-list-item h3{
+
+    margin:0 0 10px;
+
+    color:white;
+
+}
+
+.updates-list-item p{
+
+    color:#CBD5E1;
+
+    line-height:1.6;
+
+    margin-bottom:10px;
+
+}
+
+.updates-list-item small{
+
+    color:#94A3B8;
+
+}
+
+/* ==========================
+   FORM
+========================== */
+
+.updates-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    width:100%;
+
+}
+
+.updates-form input,
+.updates-form textarea,
+.updates-form select{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#0F172A;
+
+    border:1px solid #334155;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-size:15px;
+
+    box-sizing:border-box;
+
+}
+
+.updates-form textarea{
+
+    min-height:140px;
+
+    resize:vertical;
+
+}
+
+.updates-form input:focus,
+.updates-form textarea:focus,
+.updates-form select:focus{
+
+    outline:none;
+
+    border-color:#3B82F6;
+
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.primary-button{
+
+    margin-top:10px;
+
+    padding:14px;
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.primary-button:hover{
+
+    background:#1D4ED8;
+
+}
+
+/* ==========================
+   EMPTY
+========================== */
+
+.updates-empty-state{
+
+    border:2px dashed #334155;
+
+    border-radius:12px;
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#94A3B8;
+
+}
+
+/* ==========================
+   ALERT
+========================== */
+
+.updates-success-card{
+
+    background:#14532D;
+
+    padding:15px;
+
+    color:white;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+.updates-error-card{
+
+    background:#7F1D1D;
+
+    padding:15px;
+
+    color:white;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:900px){
+
+.updates-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.updates-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+}
