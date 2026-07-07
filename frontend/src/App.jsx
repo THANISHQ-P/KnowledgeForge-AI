@@ -5,7 +5,11 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+
 import KnowledgeLibrary from "./pages/KnowledgeLibrary";
+import UploadKnowledge from "./pages/UploadKnowledge";
+import KnowledgeDetails from "./pages/KnowledgeDetails";
+
 import AIChat from "./pages/AIChat";
 import MachineManagement from "./pages/MachineManagement";
 import MachineDetails from "./pages/MachineDetails";
@@ -45,6 +49,26 @@ function App() {
             element={
               <ProtectedRoute>
                 <KnowledgeLibrary />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Upload Knowledge */}
+          <Route
+            path="/upload-knowledge"
+            element={
+              <ProtectedRoute>
+                <UploadKnowledge />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Knowledge Details */}
+          <Route
+            path="/knowledge/:id"
+            element={
+              <ProtectedRoute>
+                <KnowledgeDetails />
               </ProtectedRoute>
             }
           />
