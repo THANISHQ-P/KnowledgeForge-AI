@@ -1,0 +1,55 @@
+.update-card{
+    background:#1E293B;
+    border:1px solid #334155;
+    border-radius:15px;
+    padding:22px;
+    color:white;
+    transition:.3s;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.update-card:hover{
+    transform:translateY(-5px);
+}
+
+.update-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.update-role{
+    background:#2563EB;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.update-date{
+    color:#94A3B8;
+    font-size:13px;
+}
+
+.update-card h2{
+    margin-bottom:12px;
+    color:#F8FAFC;
+    font-size:22px;
+}
+
+.update-description{
+    color:#CBD5E1;
+    line-height:1.7;
+}
+
+.status-box{
+    margin-top:20px;
+    padding:10px;
+    border-radius:8px;
+    background:#0F172A;
+}
+
+.status-text{
+    color:#22C55E;
+    font-weight:bold;
+}

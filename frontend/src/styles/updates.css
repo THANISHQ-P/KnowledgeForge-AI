@@ -322,3 +322,85 @@
 }
 
 }
+/* ==========================
+   NEW STYLES (DO NOT REMOVE OLD CSS)
+========================== */
+
+.loading-box,
+.empty-box{
+
+    background:#1E293B;
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:60px;
+
+    text-align:center;
+
+    color:white;
+
+    width:100%;
+
+}
+
+.loading-box h2,
+.empty-box h2{
+
+    margin-bottom:10px;
+
+    color:white;
+
+}
+
+.loading-box p,
+.empty-box p{
+
+    color:#94A3B8;
+
+}
+
+.role-banner{
+
+    display:inline-block;
+
+    background:#2563EB;
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.action-btn{
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.action-btn:hover{
+
+    background:#1D4ED8;
+
+}

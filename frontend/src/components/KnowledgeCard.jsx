@@ -2,20 +2,22 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 function KnowledgeCard({ document, onDelete }) {
+
   const { role } = useAuth();
 
   return (
+
     <div className="knowledge-card">
 
-      <div className="knowledge-top">
+      <div className="knowledge-card-header">
 
-        <span className="knowledge-category">
-          {document.category || "General"}
+        <h3>{document.title}</h3>
+
+        <span className="category-tag">
+          {document.category}
         </span>
 
       </div>
-
-      <h2>{document.title}</h2>
 
       <p className="knowledge-description">
         {document.description}
@@ -23,48 +25,61 @@ function KnowledgeCard({ document, onDelete }) {
 
       <div className="knowledge-meta">
 
-        <span>
-          👤 {document.uploaded_by_name || "Unknown"}
-        </span>
+        <div>
 
-        <span>
-          📅{" "}
-          {new Date(document.created_at).toLocaleDateString()}
-        </span>
+          <strong>Uploaded By</strong>
+
+          <p>{document.uploaded_by_name}</p>
+
+        </div>
+
+        <div>
+
+          <strong>Date</strong>
+
+          <p>
+            {document.created_at
+              ? new Date(document.created_at).toLocaleDateString()
+              : "-"}
+          </p>
+
+        </div>
 
       </div>
 
       <div className="knowledge-actions">
 
+        <Link
+          to={`/knowledge/${document.id}`}
+          className="view-btn"
+        >
+          👁 View Details
+        </Link>
+
         <a
           href={document.file_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="view-button"
+          className="download-btn"
         >
-          View PDF
+          📄 Open PDF
         </a>
 
-        <Link
-          to={`/knowledge/${document.id}`}
-          className="details-button"
-        >
-          Details
-        </Link>
+        {(role === "Expert" || role === "Admin") && (
 
-        {(role === "Admin" ||
-          role === "Manager") && (
           <button
-            className="delete-button"
+            className="delete-btn"
             onClick={() => onDelete(document.id)}
           >
-            Delete
+            🗑 Delete
           </button>
+
         )}
 
       </div>
 
     </div>
+
   );
 }
 

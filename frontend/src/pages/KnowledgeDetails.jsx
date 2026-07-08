@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import AppLayout from "../components/layout/AppLayout";
 import { supabase } from "../services/supabase";
@@ -7,18 +7,18 @@ import { supabase } from "../services/supabase";
 import "../styles/knowledgeDetails.css";
 
 function KnowledgeDetails() {
-
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const [document, setDocument] = useState(null);
-
+  const [knowledge, setKnowledge] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadDocument();
+    loadKnowledge();
   }, []);
 
-  async function loadDocument() {
+  async function loadKnowledge() {
+    setLoading(true);
 
     const { data, error } = await supabase
       .from("knowledge_library")
@@ -27,157 +27,127 @@ function KnowledgeDetails() {
       .single();
 
     if (error) {
-      console.log(error);
+      console.error("Error loading knowledge:", error);
       setLoading(false);
       return;
     }
 
-    setDocument(data);
-
+    setKnowledge(data);
     setLoading(false);
   }
 
   if (loading) {
-
     return (
-
       <AppLayout>
-
         <div className="details-page">
-
           <h2>Loading document...</h2>
-
         </div>
-
       </AppLayout>
-
     );
-
   }
 
-  if (!document) {
-
+  if (!knowledge) {
     return (
-
       <AppLayout>
-
         <div className="details-page">
+          <div className="details-card">
+            <h2>Document not found</h2>
 
-          <h2>Document Not Found</h2>
-
+            <button
+              className="back-btn"
+              onClick={() => navigate("/knowledge-library")}
+            >
+              ← Back to Library
+            </button>
+          </div>
         </div>
-
       </AppLayout>
-
     );
-
   }
 
   return (
-
     <AppLayout>
-
       <div className="details-page">
-
         <div className="details-card">
+          <h1>{knowledge.title}</h1>
 
-          <div className="details-header">
+          <span className="category-badge">
+            {knowledge.category || "General"}
+          </span>
 
-            <div>
-
-              <h1>{document.title}</h1>
-
-              <span className="category-badge">
-
-                {document.category}
-
-              </span>
-
-            </div>
-                      </div>
-
-          <div className="details-content">
-
+          <div className="details-section">
             <h3>Description</h3>
 
             <p>
-              {document.description}
+              {knowledge.description ||
+                "No description available."}
             </p>
-
-            <div className="details-info">
-
-              <div className="info-card">
-
-                <h4>Uploaded By</h4>
-
-                <p>
-                  {document.uploaded_by_name}
-                </p>
-
-              </div>
-
-              <div className="info-card">
-
-                <h4>Role</h4>
-
-                <p>
-                  {document.role}
-                </p>
-
-              </div>
-
-              <div className="info-card">
-
-                <h4>Uploaded On</h4>
-
-                <p>
-                  {new Date(
-                    document.created_at
-                  ).toLocaleDateString()}
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="details-buttons">
-
-              <a
-                href={document.file_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="view-btn"
-              >
-                📄 View PDF
-              </a>
-
-              <a
-                href={document.file_url}
-                download
-                className="download-btn"
-              >
-                ⬇ Download
-              </a>
-
-              <Link
-                to="/knowledge-library"
-                className="back-btn"
-              >
-                ← Back
-              </Link>
-
-            </div>
-
           </div>
 
+          <div className="details-grid">
+            <div>
+              <strong>Uploaded By</strong>
+
+              <p>
+                {knowledge.uploaded_by_name ||
+                  "Unknown User"}
+              </p>
+            </div>
+
+            <div>
+              <strong>Role</strong>
+
+              <p>{knowledge.role || "Employee"}</p>
+            </div>
+
+            <div>
+              <strong>Upload Date</strong>
+
+              <p>
+                {knowledge.created_at
+                  ? new Date(
+                      knowledge.created_at
+                    ).toLocaleDateString()
+                  : "Not Available"}
+              </p>
+            </div>
+          </div>
+
+          <div className="details-buttons">
+            {knowledge.file_url && (
+              <>
+                <a
+                  href={knowledge.file_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="view-btn"
+                >
+                  📄 View PDF
+                </a>
+
+                <a
+                  href={knowledge.file_url}
+                  download
+                  className="download-btn"
+                >
+                  ⬇ Download
+                </a>
+              </>
+            )}
+
+            <button
+              className="back-btn"
+              onClick={() =>
+                navigate("/knowledge-library")
+              }
+            >
+              ← Back
+            </button>
+          </div>
         </div>
-
       </div>
-
     </AppLayout>
-
   );
-
 }
 
 export default KnowledgeDetails;
