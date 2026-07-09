@@ -64,6 +64,14 @@
     gap:25px;
 }
 
+.knowledge-grid-container{
+    max-height: calc(100vh - 320px);
+    overflow-y: auto;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
 .knowledge-card{
     background:#1E293B;
     border:1px solid #334155;
@@ -137,7 +145,7 @@
     border-radius:8px;
     cursor:pointer;
     text-decoration:none;
-    color:white;
+    color:rgb(232, 22, 22);
     font-weight:600;
     transition:.3s;
 }

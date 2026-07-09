@@ -5,15 +5,14 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
+import KnowledgeDetails from "./pages/KnowledgeDetails";
 import KnowledgeLibrary from "./pages/KnowledgeLibrary";
 import UploadKnowledge from "./pages/UploadKnowledge";
-import KnowledgeDetails from "./pages/KnowledgeDetails";
 
-import AIChat from "./pages/AIChat";
 import MachineManagement from "./pages/MachineManagement";
 import MachineDetails from "./pages/MachineDetails";
 import Updates from "./pages/Updates";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
   return (
@@ -53,6 +52,8 @@ function App() {
             }
           />
 
+
+
           {/* Upload Knowledge */}
           <Route
             path="/upload-knowledge"
@@ -65,20 +66,24 @@ function App() {
 
           {/* Knowledge Details */}
           <Route
-            path="/knowledge/:id"
+    path="/knowledge/:id"
+    element={<KnowledgeDetails />}
+/>
+
+           <Route
+            path="/api/chat"
             element={
               <ProtectedRoute>
-                <KnowledgeDetails />
+                <ChatPage />
               </ProtectedRoute>
             }
           />
 
-          {/* AI Chat */}
           <Route
             path="/ai-chat"
             element={
               <ProtectedRoute>
-                <AIChat />
+                <ChatPage />
               </ProtectedRoute>
             }
           />

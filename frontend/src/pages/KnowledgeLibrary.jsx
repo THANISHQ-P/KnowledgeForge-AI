@@ -1,16 +1,13 @@
 import KnowledgeCard from "../components/KnowledgeCard";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import AppLayout from "../components/layout/AppLayout";
-import { supabase } from "../services/supabase";
+import api from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
-
 import "../styles/knowledgeLibrary.css";
 
 function KnowledgeLibrary() {
-  const { role } = useAuth();
-
+  
+  const { user, role } = useAuth();
   const [documents, setDocuments] = useState([]);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
 
@@ -27,26 +24,27 @@ function KnowledgeLibrary() {
   }, [search, documents]);
 
   async function loadKnowledge() {
-    setLoading(true);
 
-    const { data, error } = await supabase
-      .from("knowledge_library")
-      .select("*")
-      .order("created_at", {
-        ascending: false,
-      });
+  setLoading(true);
 
-    if (error) {
-      console.log(error);
-      setLoading(false);
-      return;
-    }
+  try {
 
-    setDocuments(data);
-    setFilteredDocuments(data);
+    const res = await api.get("/knowledge");
+
+    setDocuments(res.data || []);
+    setFilteredDocuments(res.data || []);
+
+  } catch (err) {
+
+    console.error("Failed to load knowledge:", err);
+
+  } finally {
 
     setLoading(false);
+
   }
+
+}
 
   function searchKnowledge() {
     if (search.trim() === "") {
@@ -77,6 +75,16 @@ function KnowledgeLibrary() {
     setFilteredDocuments(result);
   }
 
+  async function toggleFavorite(id, currentStatus) {
+
+  await api.patch(`/knowledge/${id}/favorite`, {
+    favorite: !currentStatus,
+  });
+
+  loadKnowledge();
+
+}
+
   async function deleteDocument(id) {
     const answer = window.confirm(
       "Delete this document?"
@@ -84,18 +92,17 @@ function KnowledgeLibrary() {
 
     if (!answer) return;
 
-    const { error } = await supabase
-      .from("knowledge_library")
-      .delete()
-      .eq("id", id);
+    const { error } = await api.delete(`/knowledge/${id}`);
 
     if (!error) {
       loadKnowledge();
     }
   }
 
+  const canUpload = ["admin", "manager", "expert"].includes(
+  role?.toLowerCase()
+);
   return (
-    <AppLayout>
 
       <div className="knowledge-page">
 
@@ -114,18 +121,18 @@ function KnowledgeLibrary() {
 
           </div>
 
-          {(role === "Expert" ||
-            role === "Manager" ||
-            role === "Admin") && (
+         
 
-            <Link
-              to="/upload-knowledge"
-              className="upload-button"
-            >
-              + Upload Knowledge
-            </Link>
+       {canUpload && (
+  <Link
+    to="/upload-knowledge"
+    className="upload-button"
+  >
+    + Upload Knowledge
+  </Link>
+)}
 
-          )}
+          
 
         </div>
 
@@ -167,22 +174,23 @@ function KnowledgeLibrary() {
 
         ) : (
 
-          <div className="knowledge-grid">
-                       {filteredDocuments.map((doc) => (
-  <KnowledgeCard
-    key={doc.id}
-    document={doc}
-    onDelete={deleteDocument}
-  />
-))}
-
+          <div className="knowledge-grid-container">
+            <div className="knowledge-grid">
+              {filteredDocuments.map((doc) => (
+                <KnowledgeCard
+                  key={doc.id}
+                  item={doc}
+                  onDelete={deleteDocument}
+                  toggleFavorite={toggleFavorite}
+                />
+              ))}
+            </div>
           </div>
 
         )}
 
       </div>
 
-    </AppLayout>
 
   );
 }

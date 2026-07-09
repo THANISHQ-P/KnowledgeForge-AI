@@ -1,152 +1,170 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
-import AppLayout from "../components/layout/AppLayout";
-import { supabase } from "../services/supabase";
-
+import { useParams, Link } from "react-router-dom";
+import api from "../services/api";
 import "../styles/knowledgeDetails.css";
 
 function KnowledgeDetails() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
-  const [knowledge, setKnowledge] = useState(null);
+  const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadKnowledge();
+    loadResource();
   }, []);
 
-  async function loadKnowledge() {
-    setLoading(true);
-
-    const { data, error } = await supabase
-      .from("knowledge_library")
-      .select("*")
-      .eq("id", id)
-      .single();
-
-    if (error) {
-      console.error("Error loading knowledge:", error);
+  async function loadResource() {
+    try {
+      const res = await api.get(`/knowledge/${id}`);
+      setItem(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    setKnowledge(data);
-    setLoading(false);
   }
 
   if (loading) {
     return (
-      <AppLayout>
-        <div className="details-page">
-          <h2>Loading document...</h2>
-        </div>
-      </AppLayout>
+      <div className="details-page">
+        <h2>Loading Resource...</h2>
+      </div>
     );
   }
 
-  if (!knowledge) {
+  if (!item) {
     return (
-      <AppLayout>
-        <div className="details-page">
-          <div className="details-card">
-            <h2>Document not found</h2>
-
-            <button
-              className="back-btn"
-              onClick={() => navigate("/knowledge-library")}
-            >
-              ← Back to Library
-            </button>
-          </div>
-        </div>
-      </AppLayout>
+      <div className="details-page">
+        <h2>Resource Not Found</h2>
+      </div>
     );
   }
 
   return (
-    <AppLayout>
-      <div className="details-page">
+    <div className="details-page">
+
+      <Link to="/knowledge-library" className="back-btn">
+        ← Back to Knowledge Library
+      </Link>
+
+      <div className="details-container">
+
         <div className="details-card">
-          <h1>{knowledge.title}</h1>
 
-          <span className="category-badge">
-            {knowledge.category || "General"}
-          </span>
+        <h1>{item.title}</h1>
 
-          <div className="details-section">
-            <h3>Description</h3>
+        <span className="status approved">
+          {item.status}
+        </span>
 
-            <p>
-              {knowledge.description ||
-                "No description available."}
-            </p>
-          </div>
+        <hr />
 
-          <div className="details-grid">
-            <div>
-              <strong>Uploaded By</strong>
+        <h2>📄 Resource Information</h2>
 
-              <p>
-                {knowledge.uploaded_by_name ||
-                  "Unknown User"}
-              </p>
-            </div>
+        <div className="info-grid">
 
-            <div>
-              <strong>Role</strong>
+          <p><strong>Machine :</strong> {item.machine_name || "-"}</p>
 
-              <p>{knowledge.role || "Employee"}</p>
-            </div>
+          <p><strong>Department :</strong> {item.department || "-"}</p>
 
-            <div>
-              <strong>Upload Date</strong>
+          <p><strong>Category :</strong> {item.category || "-"}</p>
 
-              <p>
-                {knowledge.created_at
-                  ? new Date(
-                      knowledge.created_at
-                    ).toLocaleDateString()
-                  : "Not Available"}
-              </p>
-            </div>
-          </div>
+          <p><strong>Uploaded By :</strong> {item.uploaded_by || "-"}</p>
 
-          <div className="details-buttons">
-            {knowledge.file_url && (
-              <>
-                <a
-                  href={knowledge.file_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="view-btn"
-                >
-                  📄 View PDF
-                </a>
+          <p><strong>Role :</strong> {item.uploaded_by_role || "-"}</p>
 
-                <a
-                  href={knowledge.file_url}
-                  download
-                  className="download-btn"
-                >
-                  ⬇ Download
-                </a>
-              </>
-            )}
+          <p>
+            <strong>Uploaded At :</strong>{" "}
+            {new Date(item.created_at).toLocaleDateString()}
+          </p>
 
-            <button
-              className="back-btn"
-              onClick={() =>
-                navigate("/knowledge-library")
-              }
-            >
-              ← Back
-            </button>
-          </div>
+          <p><strong>Status :</strong> {item.status}</p>
+
+          <p>
+            <strong>Favorite :</strong>{" "}
+            {item.is_favorite ? "⭐ Yes" : "☆ No"}
+          </p>
+
         </div>
+
       </div>
-    </AppLayout>
+        <hr />
+
+        <h2>🤖 AI Summary</h2>
+
+        <p>{item.summary || "No Summary Available."}</p>
+
+        <hr />
+
+        <h2>🏷 Keywords</h2>
+
+        <div className="keyword-box">
+          {(item.keywords || "")
+            .split(",")
+            .filter(Boolean)
+            .map((key, index) => (
+              <span key={index} className="keyword">
+                {key.trim()}
+              </span>
+            ))}
+        </div>
+
+        <hr />
+
+        <h2>📘 Standard Operating Procedure</h2>
+
+        <p>{item.sop || "Not Available"}</p>
+
+        <hr />
+
+        <h2>🔧 Repair Steps</h2>
+
+        <p>{item.repair_steps || "Not Available"}</p>
+
+        <hr />
+
+        <h2>🦺 Safety Checklist</h2>
+
+        <p>{item.safety_checklist || "Not Available"}</p>
+
+        <hr />
+
+        <h2>🛠 Required Tools</h2>
+
+        <p>{item.required_tools || "Not Available"}</p>
+
+        <hr />
+
+        <h2>⏱ Estimated Time</h2>
+
+        <p>{item.estimated_time || "Not Available"}</p>
+
+        <hr />
+
+        <div className="action-buttons">
+
+          <a
+            href={item.file_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pdf-btn"
+          >
+            📄 Open PDF
+          </a>
+
+          <a
+            href={item.file_url}
+            download
+            className="download-btn"
+          >
+            ⬇ Download
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
   );
 }
 

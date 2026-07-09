@@ -1,0 +1,70 @@
+CNC MACHINE TROUBLESHOOTING MANUAL
+
+Document ID: CNC-MAINT-001
+Department: Maintenance
+Machine: CNC Machine 12
+Author: Senior Maintenance Engineer - Rajesh Kumar
+
+---------------------------------------------------
+
+Error Code: E102
+
+Problem
+Motor Overheating
+
+Description
+Error E102 occurs when the spindle motor temperature exceeds the safe operating limit.
+
+Possible Causes
+
+• Cooling fan failure
+• Coolant blockage
+• Continuous operation for more than 6 hours
+• Bearing damage
+• High ambient temperature
+
+Repair Steps
+
+1. Switch OFF the machine.
+2. Disconnect the power supply.
+3. Remove the motor cover.
+4. Inspect the cooling fan.
+5. Clean the coolant filter.
+6. Check motor bearings.
+7. Replace damaged fan if necessary.
+8. Restart the machine.
+
+Safety Checklist
+
+✔ Disconnect electrical power.
+✔ Wear insulated gloves.
+✔ Allow motor to cool for 15 minutes.
+✔ Lock-Out Tag-Out (LOTO).
+✔ Verify emergency stop is active.
+
+Required Tools
+
+Allen Key Set
+Torque Wrench
+Multimeter
+Coolant Filter
+Cleaning Brush
+
+Estimated Repair Time
+
+20 Minutes
+
+Preventive Maintenance
+
+• Clean coolant filter every week.
+• Inspect cooling fan monthly.
+• Lubricate bearings every 3 months.
+• Record maintenance in maintenance log.
+
+Related SOP
+
+SOP-CNC-102
+
+Training Video
+
+CNC_E102_Repair.mp4

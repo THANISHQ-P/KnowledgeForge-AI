@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-function KnowledgeCard({ document, onDelete }) {
+function KnowledgeCard({ item, onDelete, toggleFavorite }) {
 
   const { role } = useAuth();
 
@@ -11,69 +11,85 @@ function KnowledgeCard({ document, onDelete }) {
 
       <div className="knowledge-card-header">
 
-        <h3>{document.title}</h3>
-
-        <span className="category-tag">
-          {document.category}
-        </span>
+        <h3>{item.title}</h3>
 
       </div>
 
-      <p className="knowledge-description">
-        {document.description}
-      </p>
+      <div className="knowledge-info">
 
-      <div className="knowledge-meta">
+        <p>
+          <strong>Machine :</strong> {item.machine_name || "-"}
+        </p>
 
-        <div>
+        <p>
+          <strong>Expert :</strong> {item.uploaded_by || "-"}
+        </p>
 
-          <strong>Uploaded By</strong>
+        <p>
+          <strong>Uploaded At :</strong>{" "}
+          {item.created_at
+            ? new Date(item.created_at).toLocaleDateString()
+            : "-"}
+        </p>
 
-          <p>{document.uploaded_by_name}</p>
+        <p>
+          <strong>Uploaded By :</strong> {item.uploaded_by || "-"}
+        </p>
 
-        </div>
+        <p>
+          <strong>Status :</strong> {item.status || "Pending"}
+        </p>
 
-        <div>
-
-          <strong>Date</strong>
-
-          <p>
-            {document.created_at
-              ? new Date(document.created_at).toLocaleDateString()
-              : "-"}
-          </p>
-
-        </div>
+        <p>
+          <strong>Favorite :</strong>{" "}
+          {item.is_favorite ? "⭐ Yes" : "☆ No"}
+        </p>
 
       </div>
 
       <div className="knowledge-actions">
 
         <Link
-          to={`/knowledge/${document.id}`}
+          to={`/knowledge/${item.id}`}
           className="view-btn"
         >
           👁 View Details
         </Link>
 
         <a
-          href={document.file_url}
+          href={item.file_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="download-btn"
+          className="pdf-btn"
         >
-          📄 Open PDF
+          📄 View PDF
         </a>
 
-        {(role === "Expert" || role === "Admin") && (
+        <a
+          href={item.file_url}
+          download={item.file_name}
+          className="download-btn"
+        >
+          ⬇ Download
+        </a>
 
+        <button
+          className="favorite-btn"
+          onClick={() =>
+            toggleFavorite(item.id, item.is_favorite)
+          }
+        >
+          {item.is_favorite ? "⭐ Unfavorite" : "☆ Favorite"}
+        </button>
+
+        {(role === "Expert" || role === "Admin") && (
           <button
+          
             className="delete-btn"
-            onClick={() => onDelete(document.id)}
+            onClick={() => onDelete(item.id)}
           >
             🗑 Delete
           </button>
-
         )}
 
       </div>
@@ -81,6 +97,7 @@ function KnowledgeCard({ document, onDelete }) {
     </div>
 
   );
+
 }
 
 export default KnowledgeCard;
