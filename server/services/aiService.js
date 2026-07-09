@@ -7,13 +7,27 @@ const DEFAULT_MODEL = "gemini-2.5-flash";
 const MAX_RETRIES = 2;
 
 function getAI() {
-  const apiKey = process.env.GEMINI_API_KEY;
+  // Accept several possible env var names to reduce misconfiguration
+  const apiKey =
+    process.env.GEMINI_API_KEY ||
+    process.env.Gemini_API_KEY ||
+    process.env.VITE_Gemini_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.GENAI_API_KEY;
 
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY not found");
+  if (apiKey) {
+    const masked = `${apiKey.slice(0, 6)}...${apiKey.slice(-6)}`;
+    console.info(`Using Gemini API key from env (masked): ${masked}`);
+    return new GoogleGenAI({ apiKey });
   }
 
-  return new GoogleGenAI({ apiKey });
+  // If no API key provided, rely on Google Application Default Credentials
+  // (service account JSON pointed to by GOOGLE_APPLICATION_CREDENTIALS)
+  console.warn(
+    "No Gemini API key found in env. Falling back to Application Default Credentials.\nSet GEMINI_API_KEY (or VITE_Gemini_API_KEY) to use an API key."
+  );
+
+  return new GoogleGenAI();
 }
 
 function sleep(ms) {
@@ -104,7 +118,27 @@ ${text}
     const clean = output.replace(/```json/g, "").replace(/```/g, "").trim();
 
     try {
-      return JSON.parse(clean);
+      let aiResult;
+
+try {
+    aiResult = JSON.parse(clean);
+} catch (err) {
+    console.log("Gemini returned invalid JSON");
+    console.log(clean);
+
+    aiResult = {
+        title: "",
+        summary: "",
+        keywords: [],
+        sop: "",
+        repair_steps: "",
+        safety_checklist: "",
+        required_tools: "",
+        estimated_time: ""
+    };
+}
+
+return aiResult;
     } catch (err) {
       console.log("Invalid JSON from Gemini");
       console.log(clean);

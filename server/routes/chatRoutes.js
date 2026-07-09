@@ -91,6 +91,7 @@ answer = await askGemini(question, document, intent);
       ai: usedAI,
       source: {
         title: document.title,
+        expert: document.uploaded_by_name || document.uploaded_by || null,
         machine: document.machine_name,
         department: document.department,
         category: document.category,

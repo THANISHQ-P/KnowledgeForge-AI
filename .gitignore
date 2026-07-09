@@ -1,11 +1,12 @@
 #Dependencies
 /node_modules
+/frontend/node_modules
+/server/node_modules
+
 
 #Environment Variables
 .env
-/server/.env
-/frontend/.env.local
-/frontend/src/.env.local
+
 
 # folder
 /server/uploads/

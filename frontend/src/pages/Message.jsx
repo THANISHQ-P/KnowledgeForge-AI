@@ -21,9 +21,13 @@ function Message({ sender, text, source, ai }) {
             {source && (
 
                 <div className="source">
-
-                    📄 Source: {source.title}
-
+                    {source.expert ? (
+                        <>
+                            📄 {source.expert} — Source: {source.title}
+                        </>
+                    ) : (
+                        <>📄 Source: {source.title}</>
+                    )}
                 </div>
 
             )}
