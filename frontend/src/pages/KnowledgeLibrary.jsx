@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 import {
   FaSearch,
@@ -19,7 +21,7 @@ import "../styles/knowledgeLibrary.css";
 
 function KnowledgeLibrary() {
   const { role } = useAuth();
-
+  const navigate = useNavigate();
   const [documents, setDocuments] = useState([]);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
 
@@ -144,14 +146,27 @@ function KnowledgeLibrary() {
   const totalCategories =
     categories.length - 1;
       return (
+        
     <div className="knowledge-page">
 
+      
       {/* ================= HERO ================= */}
 
       <section className="knowledge-hero">
 
         <div>
 
+          <div className="library-top">
+
+    <button
+        className="back-btn"
+        onClick={() => navigate("/dashboard")}
+    >
+        <FaArrowLeft />
+        Dashboard
+    </button>
+
+</div>
           <span className="hero-tag">
             Enterprise Knowledge Hub
           </span>

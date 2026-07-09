@@ -1,5 +1,6 @@
 /* =====================================================
    KNOWLEDGE DETAILS PAGE
+   Matches KnowledgeDetails.jsx structure exactly
 ===================================================== */
 
 .knowledge-details-page {
@@ -10,10 +11,13 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* =====================================================
-   LOADING
+   LOADING / NOT FOUND
 ===================================================== */
 
 .details-loading {
@@ -51,7 +55,10 @@
   border-radius: 999px;
   transition: 0.25s ease;
   font-weight: 600;
-  cursor: pointer;
+}
+
+.back-btn svg {
+  font-size: 14px;
 }
 
 .back-btn:hover {
@@ -64,18 +71,17 @@
    HERO
 ===================================================== */
 
-.details-hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 32px 36px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-  position: relative;
-  overflow: hidden;
+.details-hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+
+    width:100%;
+
+    padding:35px;
+
+    position:relative;
 }
 
 .details-hero::before {
@@ -86,49 +92,18 @@
   background: linear-gradient(180deg, #3b82f6, #06b6d4);
 }
 
-.details-hero-left {
+/* the untagged wrapper div holding h1 + p */
+.details-hero > div {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.hero-tags {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-}
-
-.hero-type-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #2563eb;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.hero-category-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.12);
-  color: #94a3b8;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid #334155;
+  min-width: 0;
 }
 
 .details-hero h1 {
   color: white;
   font-size: clamp(28px, 3vw, 40px);
-  margin-bottom: 10px;
+  margin: 0 0 4px;
   line-height: 1.2;
 }
 
@@ -137,47 +112,6 @@
   max-width: 760px;
   line-height: 1.8;
   margin: 0;
-}
-
-.hero-meta-row {
-  display: flex;
-  gap: 22px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-  color: #94a3b8;
-  font-size: 13px;
-}
-
-.hero-meta-row span {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.hero-meta-row i {
-  color: #60a5fa;
-}
-
-.details-hero-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 14px;
-  flex-shrink: 0;
-}
-
-.favorite-toggle {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid #334155;
-  color: #facc15;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
 }
 
 /* =====================================================
@@ -195,6 +129,11 @@
   white-space: nowrap;
   border: 1px solid transparent;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+  flex-shrink: 0;
+}
+
+.status-badge svg {
+  font-size: 16px;
 }
 
 .status-badge.approved {
@@ -210,7 +149,7 @@
 }
 
 /* =====================================================
-   COMMON CARD
+   COMMON CARD (all <section className="details-card">)
 ===================================================== */
 
 .details-card {
@@ -226,7 +165,7 @@
 .details-card:hover {
   transform: translateY(-4px);
   border-color: #3b82f6;
-  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.16);
+  box-shadow: 0 18px 45px rgba(37, 99, 235, 0.16);
 }
 
 /* =====================================================
@@ -240,26 +179,28 @@
   margin-bottom: 18px;
 }
 
-.card-title svg,
-.card-title i {
+.card-title svg {
   color: #60a5fa;
   font-size: 20px;
+  flex-shrink: 0;
 }
 
 .card-title h2 {
   color: white;
   margin: 0;
+  margin-bottom: 15px;
   font-size: 20px;
 }
 
 /* =====================================================
-   RESOURCE INFORMATION
+   RESOURCE INFORMATION GRID
+   (Machine, Department, Category, Uploaded By, Role, Uploaded On)
 ===================================================== */
 
-.resource-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+.resource-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:18px;
 }
 
 .resource-item {
@@ -278,8 +219,7 @@
   transform: translateY(-2px);
 }
 
-.resource-item svg,
-.resource-item > i {
+.resource-item > svg {
   width: 44px;
   height: 44px;
   padding: 10px;
@@ -288,9 +228,7 @@
   color: white;
   font-size: 16px;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-sizing: border-box;
 }
 
 .resource-item div {
@@ -317,7 +255,7 @@
 }
 
 /* =====================================================
-   SUMMARY
+   AI SUMMARY
 ===================================================== */
 
 .summary-text {
@@ -351,7 +289,6 @@
   font-size: 13px;
   font-weight: 600;
   transition: 0.25s ease;
-  cursor: default;
 }
 
 .keyword:hover {
@@ -360,8 +297,19 @@
   transform: translateY(-2px);
 }
 
+/* fallback "No Keywords Available" text rendered as <p> inside keyword-box */
+.keyword-box p {
+  margin: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #94a3b8;
+  font-style: italic;
+}
+
 /* =====================================================
-   CONTENT BLOCKS
+   TEXT BLOCKS
+   (SOP, Repair Steps, Safety Checklist, Required Tools, Estimated Time)
 ===================================================== */
 
 .details-card p {
@@ -373,30 +321,39 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   padding: 18px 20px;
+  white-space: pre-line;
 }
 
 /* =====================================================
    SECTION ACCENTS
+   DOM order inside .knowledge-details-page:
+   1 details-top, 2 details-hero,
+   3 Resource Info, 4 AI Summary, 5 Keywords,
+   6 SOP, 7 Repair Steps, 8 Safety, 9 Required Tools, 10 Estimated Time
 ===================================================== */
 
 .details-card:nth-child(5) {
-  border-left: 5px solid #3b82f6;
+  border-left: 5px solid #3b82f6; /* Keywords */
 }
 
 .details-card:nth-child(6) {
-  border-left: 5px solid #f59e0b;
+  border-left: 5px solid #f59e0b; /* SOP */
 }
 
 .details-card:nth-child(7) {
-  border-left: 5px solid #ef4444;
+  border-left: 5px solid #ef4444; /* Repair Steps */
 }
 
 .details-card:nth-child(8) {
-  border-left: 5px solid #10b981;
+  border-left: 5px solid #10b981; /* Safety Checklist */
 }
 
 .details-card:nth-child(9) {
-  border-left: 5px solid #8b5cf6;
+  border-left: 5px solid #8b5cf6; /* Required Tools */
+}
+
+.details-card:nth-child(10) {
+  border-left: 5px solid #06b6d4; /* Estimated Time */
 }
 
 /* =====================================================
@@ -420,9 +377,11 @@
   border-radius: 14px;
   font-weight: 600;
   transition: 0.25s ease;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
+}
+
+.pdf-btn svg,
+.download-btn svg {
+  font-size: 16px;
 }
 
 .pdf-btn {
@@ -524,11 +483,6 @@
     width: 100%;
     justify-content: center;
   }
-
-  .details-hero-right {
-    width: 100%;
-    align-items: flex-start;
-  }
 }
 
 @media (max-width: 500px) {
@@ -543,8 +497,7 @@
     align-items: flex-start;
   }
 
-  .resource-item svg,
-  .resource-item > i {
+  .resource-item > svg {
     width: 40px;
     height: 40px;
     font-size: 15px;

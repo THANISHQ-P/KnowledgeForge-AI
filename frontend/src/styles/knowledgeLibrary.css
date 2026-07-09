@@ -632,6 +632,63 @@
     transform:translateY(-3px);
 
 }
+
+/* ============================
+   Back Button
+============================ */
+
+.library-top{
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:20px;
+}
+
+.back-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#1e293b;
+
+    color:#e2e8f0;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.back-btn:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 25px rgba(37,99,235,.25);
+
+}
+
+.back-btn svg{
+
+    font-size:14px;
+
+}
 /* ===================================================
    ACTION BUTTON COLORS
 =================================================== */

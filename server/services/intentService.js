@@ -1,6 +1,39 @@
 export function detectIntent(question) {
 
-    const q = question.toLowerCase();
+    const q = question.toLowerCase().trim();
+
+     // Greetings
+    if (
+        ["hi","hello","hey","hii","good morning","good afternoon","good evening"]
+        .includes(q)
+    ) return "greeting";
+
+    if (q.includes("how are you")) return "howareyou";
+
+    if (q.includes("who are you")) return "about";
+
+    if (q.includes("help")) return "help";
+
+    if (q.includes("thank")) return "thanks";
+
+    if (q.includes("bye") || q.includes("goodbye"))
+        return "bye";
+
+    // Lists
+    if (q.includes("show all sop"))
+        return "list_sop";
+
+    if (q.includes("show all machine"))
+        return "list_machine";
+
+    if (q.includes("show all safety"))
+        return "list_safety";
+
+    if (q.includes("show all repair"))
+        return "list_repair";
+
+    if (q.includes("show all"))
+        return "list";
 
     if (
         q.includes("sop") ||

@@ -41,38 +41,38 @@ function MachineStatus() {
     setLoading(false);
   }
 
+ 
   function getDisplayStatus(status) {
-    if (!status) return "Offline";
+  if (!status) return "Offline";
 
-    switch (status.toLowerCase()) {
-      case "running":
-        return "Online";
+  switch (status.toLowerCase()) {
+    case "running":
+      return "Running";
 
-      case "maintenance":
-        return "Maintenance";
+    case "maintenance":
+      return "Maintenance";
 
-      case "offline":
-      case "stopped":
-        return "Offline";
+    case "offline":
+    case "stopped":
+      return "Offline";
 
-      default:
-        return status;
-    }
+    default:
+      return status;
   }
+}
 
-  function getStatusIcon(status) {
-    switch (status) {
-      case "Online":
-        return <FaCheckCircle />;
+function getStatusIcon(status) {
+  switch (status.toLowerCase()) {
+    case "running":
+      return <FaCheckCircle />;
 
-      case "Maintenance":
-        return <FaExclamationTriangle />;
+    case "maintenance":
+      return <FaExclamationTriangle />;
 
-      default:
-        return <FaTimesCircle />;
-    }
+    default:
+      return <FaTimesCircle />;
   }
-
+}
   function getHealth(status) {
     switch (status?.toLowerCase()) {
       case "running":
@@ -160,11 +160,11 @@ function MachineStatus() {
                   <div>
                     <h3>{machine.machine_name}</h3>
 
-                    <span
-                      className={`status-badge ${displayStatus.toLowerCase()}`}
-                    >
-                      {getStatusIcon(displayStatus)}
-                      {displayStatus}
+                   <span
+  className={`status-badge ${machine.status?.toLowerCase()}`}
+>
+  {getStatusIcon(machine.status)}
+  {displayStatus}
                     </span>
                   </div>
                 </div>

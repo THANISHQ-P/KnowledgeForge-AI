@@ -1,25 +1,85 @@
-.upload-page{
-    padding:30px;
-    background:#f5f7fb;
-    min-height:100vh;
+/* ===== CRITICAL: reset so nothing upstream blocks scrolling ===== */
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+    overflow-x:hidden;
+    overflow-y:auto;      /* body itself must be allowed to scroll */
 }
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== Page wrapper ===== */
+/* ===================================================
+   UPLOAD PAGE
+=================================================== */
+
+.upload-page{
+    min-height:100vh;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow:hidden;
+}
+
+/* ===================================================
+   CONTAINER
+=================================================== */
 
 .upload-container{
-    max-width:750px;
-    margin:auto;
-    background:#fff;
+
+    width:75%;
+    max-width:560px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+
     padding:35px;
-    border-radius:14px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
 }
 
+/* Smooth Scroll */
+
+.upload-container::-webkit-scrollbar{
+    width:8px;
+}
+
+.upload-container::-webkit-scrollbar-thumb{
+    background:#334155;
+    border-radius:20px;
+}
+
+.upload-container::-webkit-scrollbar-thumb:hover{
+    background:#2563eb;
+}
 .upload-container h1{
-    color:#1f2937;
-    margin-bottom:10px;
+    color:#f9fafb;
+    margin:0 0 10px 0;
+    font-size:34px;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .upload-container p{
-    color:#6b7280;
+    color:#9ca3af;
     margin-bottom:30px;
 }
 
@@ -32,7 +92,7 @@
     margin-top:18px;
     margin-bottom:8px;
     font-weight:600;
-    color:#374151;
+    color:#e5e7eb;
 }
 
 .upload-container input,
@@ -40,12 +100,19 @@
 .upload-container textarea{
     width:100%;
     padding:14px;
-    border:1px solid #d1d5db;
+    border:1px solid #4b5563;
     border-radius:10px;
     font-size:15px;
     outline:none;
     transition:.3s;
     box-sizing:border-box;
+    background:#2f3440;
+    color:#f3f4f6;
+}
+
+.upload-container input::placeholder,
+.upload-container textarea::placeholder{
+    color:#9ca3af;
 }
 
 .upload-container input:focus,
@@ -56,14 +123,28 @@
 
 .upload-container textarea{
     resize:vertical;
+    min-height:120px;
 }
 
 .upload-container input[type=file]{
     padding:10px;
+    background:#f8fafc;
+    color:#111827;
+    border:2px dashed #2563eb;
+}
+
+.upload-container select{
+    font-weight:600;
+    appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='%23f3f4f6' viewBox='0 0 20 20'><path d='M5.25 7.5L10 12.25L14.75 7.5H5.25Z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    background-size:18px;
 }
 
 .upload-container button{
     margin-top:30px;
+    margin-bottom:10px;       /* breathing room so it's never flush with card edge */
     background:#2563eb;
     color:white;
     border:none;
@@ -84,14 +165,47 @@
     cursor:not-allowed;
 }
 
-@media(max-width:768px){
-
-.upload-page{
-padding:15px;
+/* Custom scrollbar for the whole page (webkit browsers) */
+body::-webkit-scrollbar{
+    width:10px;
+}
+body::-webkit-scrollbar-track{
+    background:#0e1524;
+}
+body::-webkit-scrollbar-thumb{
+    background:#3b4252;
+    border-radius:10px;
+}
+body::-webkit-scrollbar-thumb:hover{
+    background:#4b5563;
 }
 
-.upload-container{
-padding:20px;
+@media (max-width:900px){
+
+    .upload-page{
+        padding:20px;
+    }
+
+    .upload-container{
+
+        max-width:100%;
+
+        max-height:95vh;
+
+        padding:25px;
+
+    }
+
 }
+
+@media (max-width:600px){
+
+    .upload-container{
+
+        padding:18px;
+
+        border-radius:18px;
+
+    }
 
 }

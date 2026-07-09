@@ -99,10 +99,21 @@
     cursor:pointer;
     transition:.3s;
 }
-
 .hero-ai-card button:hover{
     transform:translateY(-3px);
     background:#eff6ff;
+    color:#2563eb;
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+.chat-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
 }
 
 /* =====================================================

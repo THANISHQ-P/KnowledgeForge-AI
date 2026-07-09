@@ -15,7 +15,7 @@ import AppLayout from "../components/layout/AppLayout";
 import StatCard from "../components/StatCard";
 import MachineStatus from "../components/dashboard/MachineStatus";
 import RecentAlerts from "../components/dashboard/RecentAlerts";
-
+import { Link } from "react-router-dom";
 import { supabase } from "../services/supabase";
 
 function Dashboard() {
@@ -141,15 +141,15 @@ function Dashboard() {
               </p>
 
             </div>
+            <p className="chat-button">
+              <Link
+            to="/api/chat">
+              <button>
+              KnowForge AI
 
-            <button>
-
-              Open AI
-
-              <FaArrowRight />
-
-            </button>
-
+              <FaArrowRight /></button>
+          </Link>
+</p>
           </div>
 
         </section>

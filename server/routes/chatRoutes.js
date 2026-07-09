@@ -31,6 +31,59 @@ router.post("/", async (req, res) => {
     }
 
     const intent = detectIntent(question);
+    if(intent==="greeting")
+return res.json({
+success:true,
+answer:"👋 Hello! Welcome to KnowForge AI.",
+source:null
+});
+
+if(intent==="howareyou")
+return res.json({
+success:true,
+answer:"I'm functioning well and ready to help you with your company's knowledge resources.",
+source:null
+});
+
+if(intent==="about")
+return res.json({
+success:true,
+answer:"I'm KnowForge AI. I answer questions only from approved company knowledge resources.",
+source:null
+});
+
+if(intent==="thanks")
+return res.json({
+success:true,
+answer:"You're welcome! 😊",
+source:null
+});
+
+if(intent==="bye")
+return res.json({
+success:true,
+answer:"Goodbye! Stay safe.",
+source:null
+});
+
+if(intent==="help")
+return res.json({
+success:true,
+answer:`You can ask:
+
+• SOP for CNC Machine
+
+• Repair Steps
+
+• Safety Checklist
+
+• Required Tools
+
+• Estimated Repair Time
+
+• Explain Telephone Etiquette`,
+source:null
+});
     let answer = "";
     let usedAI = false;
 
