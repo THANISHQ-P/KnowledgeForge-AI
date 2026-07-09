@@ -18,7 +18,14 @@ dotenv.config({
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://knowledge-forge-ai.vercel.app"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use("/api", knowledgeRoutes);
 app.use("/api/chat", chatRoutes);
