@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../services/supabase";
-import "../../styles/addMachineModal.css";
+
+import "../../styles/AddMachineModal.css";
 
 function MaintenanceModal({ onClose, onSuccess }) {
 

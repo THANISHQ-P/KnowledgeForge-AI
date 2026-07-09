@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "../../services/supabase";
 import { useAuth } from "../../contexts/AuthContext";
 
-import "../../styles/addMachineModal.css";
+import "../../styles/AddMachineModal.css";
 
 function KnowledgeTransferModal({ onClose, onSuccess }) {
 

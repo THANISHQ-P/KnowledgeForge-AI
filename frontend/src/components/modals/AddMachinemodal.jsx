@@ -5,7 +5,7 @@ import { supabase } from "../../services/supabase";
 function AddMachineModal({ onClose }) {
   const [machineId, setMachineId] = useState("");
   const [machineName, setMachineName] = useState("");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState(""); 
   const [location, setLocation] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [model, setModel] = useState("");

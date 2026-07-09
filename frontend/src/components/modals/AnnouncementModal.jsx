@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../services/supabase";
 
-import "../../styles/addMachineModal.css";
+import "../../styles/AddMachineModal.css";
 
 function AnnouncementModal({ onClose, onSuccess }) {
   const [title, setTitle] = useState("");
