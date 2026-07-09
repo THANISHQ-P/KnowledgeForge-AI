@@ -1,10 +1,20 @@
 import { useState } from "react";
+import {
+  FaTimes,
+  FaCog,
+  FaIndustry,
+  FaMapMarkerAlt,
+  FaBuilding,
+  FaAlignLeft,
+} from "react-icons/fa";
+
 import { supabase } from "../../services/supabase";
 import { useAuth } from "../../contexts/AuthContext";
 
 import "../../styles/addMachineModal.css";
 
 function AddMachineModal({ onClose }) {
+
   const { user, role } = useAuth();
 
   const [machineName, setMachineName] = useState("");
@@ -17,6 +27,7 @@ function AddMachineModal({ onClose }) {
   const [saving, setSaving] = useState(false);
 
   async function saveMachine(e) {
+
     e.preventDefault();
 
     if (!machineName || !machineId || !department) {
@@ -61,19 +72,36 @@ function AddMachineModal({ onClose }) {
   }
 
   return (
+
     <div className="modal-overlay">
 
       <div className="modal-card">
 
         <div className="modal-header">
 
-          <h2>Add Machine</h2>
+          <div className="modal-title">
+
+            <div className="modal-icon">
+              <FaCog />
+            </div>
+
+            <div>
+
+              <h2>Add New Machine</h2>
+
+              <p>
+                Register a new industrial asset
+              </p>
+
+            </div>
+
+          </div>
 
           <button
-            type="button"
+            className="close-btn"
             onClick={onClose}
           >
-            ✕
+            <FaTimes />
           </button>
 
         </div>
@@ -82,70 +110,131 @@ function AddMachineModal({ onClose }) {
 
           <div className="modal-body">
 
-            <input
-              type="text"
-              placeholder="Machine Name"
-              value={machineName}
-              onChange={(e) =>
-                setMachineName(e.target.value)
-              }
-            />
+            <div className="form-grid">
 
-            <input
-              type="text"
-              placeholder="Machine ID (Example: MC-001)"
-              value={machineId}
-              onChange={(e) =>
-                setMachineId(e.target.value)
-              }
-            />
+              <div className="input-group">
 
-            <input
-              type="text"
-              placeholder="Department"
-              value={department}
-              onChange={(e) =>
-                setDepartment(e.target.value)
-              }
-            />
+                <label>Machine ID</label>
 
-            <input
-              type="text"
-              placeholder="Location"
-              value={location}
-              onChange={(e) =>
-                setLocation(e.target.value)
-              }
-            />
+                <div className="input-box">
 
-            <select
-              value={status}
-              onChange={(e) =>
-                setStatus(e.target.value)
-              }
-            >
-              <option value="Running">
-                Running
-              </option>
+                  <FaCog />
 
-              <option value="Maintenance">
-                Maintenance
-              </option>
+                  <input
+                    type="text"
+                    placeholder="MC-001"
+                    value={machineId}
+                    onChange={(e) =>
+                      setMachineId(e.target.value)
+                    }
+                  />
 
-              <option value="Stopped">
-                Stopped
-              </option>
+                </div>
 
-            </select>
+              </div>
 
-            <textarea
-              rows="4"
-              placeholder="Machine Description"
-              value={description}
-              onChange={(e) =>
-                setDescription(e.target.value)
-              }
-            />
+              <div className="input-group">
+
+                <label>Machine Name</label>
+
+                <div className="input-box">
+
+                  <FaIndustry />
+
+                  <input
+                    type="text"
+                    placeholder="CNC Machine"
+                    value={machineName}
+                    onChange={(e) =>
+                      setMachineName(e.target.value)
+                    }
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="input-group">
+
+                <label>Department</label>
+
+                <div className="input-box">
+
+                  <FaBuilding />
+
+                  <input
+                    type="text"
+                    placeholder="Production"
+                    value={department}
+                    onChange={(e) =>
+                      setDepartment(e.target.value)
+                    }
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="input-group">
+
+                <label>Location</label>
+
+                <div className="input-box">
+
+                  <FaMapMarkerAlt />
+
+                  <input
+                    type="text"
+                    placeholder="Block A"
+                    value={location}
+                    onChange={(e) =>
+                      setLocation(e.target.value)
+                    }
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="input-group full-width">
+
+                <label>Status</label>
+
+                <select
+                  value={status}
+                  onChange={(e) =>
+                    setStatus(e.target.value)
+                  }
+                >
+                  <option>Running</option>
+                  <option>Maintenance</option>
+                  <option>Stopped</option>
+                </select>
+
+              </div>
+
+              <div className="input-group full-width">
+
+                <label>Description</label>
+
+                <div className="textarea-box">
+
+                  <FaAlignLeft />
+
+                  <textarea
+                    rows="4"
+                    placeholder="Machine Description..."
+                    value={description}
+                    onChange={(e) =>
+                      setDescription(e.target.value)
+                    }
+                  />
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -174,7 +263,9 @@ function AddMachineModal({ onClose }) {
       </div>
 
     </div>
+
   );
+
 }
 
 export default AddMachineModal;

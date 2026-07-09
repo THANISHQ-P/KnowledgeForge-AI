@@ -1,146 +1,285 @@
-import KnowledgeCard from "../components/KnowledgeCard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+
+import {
+  FaSearch,
+  FaBookOpen,
+  FaFileAlt,
+  FaTools,
+  FaStar,
+  FaUpload,
+} from "react-icons/fa";
+
 import api from "../services/api";
 import { useAuth } from "../contexts/AuthContext";
+
+import KnowledgeCard from "../components/KnowledgeCard";
+
 import "../styles/knowledgeLibrary.css";
 
 function KnowledgeLibrary() {
-  
-  const { user, role } = useAuth();
+  const { role } = useAuth();
+
   const [documents, setDocuments] = useState([]);
   const [filteredDocuments, setFilteredDocuments] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
+
+  const canUpload = [
+    "admin",
+    "manager",
+    "expert",
+  ].includes(role?.toLowerCase());
 
   useEffect(() => {
     loadKnowledge();
   }, []);
 
   useEffect(() => {
-    searchKnowledge();
-  }, [search, documents]);
+    filterKnowledge();
+  }, [
+    search,
+    selectedCategory,
+    documents,
+  ]);
 
   async function loadKnowledge() {
+    setLoading(true);
 
-  setLoading(true);
+    try {
+      const res = await api.get("/knowledge");
 
-  try {
-
-    const res = await api.get("/knowledge");
-
-    setDocuments(res.data || []);
-    setFilteredDocuments(res.data || []);
-
-  } catch (err) {
-
-    console.error("Failed to load knowledge:", err);
-
-  } finally {
-
-    setLoading(false);
-
-  }
-
-}
-
-  function searchKnowledge() {
-    if (search.trim() === "") {
-      setFilteredDocuments(documents);
-      return;
+      setDocuments(res.data || []);
+      setFilteredDocuments(res.data || []);
+    } catch (err) {
+      console.error(err);
     }
 
-    const result = documents.filter((doc) => {
-      return (
-        doc.title
-          ?.toLowerCase()
-          .includes(search.toLowerCase()) ||
-
-        doc.category
-          ?.toLowerCase()
-          .includes(search.toLowerCase()) ||
-
-        doc.description
-          ?.toLowerCase()
-          .includes(search.toLowerCase()) ||
-
-        doc.uploaded_by_name
-          ?.toLowerCase()
-          .includes(search.toLowerCase())
-      );
-    });
-
-    setFilteredDocuments(result);
+    setLoading(false);
   }
 
-  async function toggleFavorite(id, currentStatus) {
+  function filterKnowledge() {
+    let data = [...documents];
 
-  await api.patch(`/knowledge/${id}/favorite`, {
-    favorite: !currentStatus,
-  });
+    if (selectedCategory !== "All") {
+      data = data.filter(
+        (doc) =>
+          doc.category === selectedCategory
+      );
+    }
 
-  loadKnowledge();
+    if (search.trim()) {
+      const text = search.toLowerCase();
 
-}
+      data = data.filter(
+        (doc) =>
+          doc.title
+            ?.toLowerCase()
+            .includes(text) ||
+          doc.machine_name
+            ?.toLowerCase()
+            .includes(text) ||
+          doc.department
+            ?.toLowerCase()
+            .includes(text) ||
+          doc.category
+            ?.toLowerCase()
+            .includes(text)
+      );
+    }
+
+    setFilteredDocuments(data);
+  }
+
+  async function toggleFavorite(
+    id,
+    current
+  ) {
+    await api.patch(
+      `/knowledge/${id}/favorite`,
+      {
+        favorite: !current,
+      }
+    );
+
+    loadKnowledge();
+  }
 
   async function deleteDocument(id) {
-    const answer = window.confirm(
+    const ok = window.confirm(
       "Delete this document?"
     );
 
-    if (!answer) return;
+    if (!ok) return;
 
-    const { error } = await api.delete(`/knowledge/${id}`);
+    await api.delete(`/knowledge/${id}`);
 
-    if (!error) {
-      loadKnowledge();
-    }
+    loadKnowledge();
   }
 
-  const canUpload = ["admin", "manager", "expert"].includes(
-  role?.toLowerCase()
-);
-  return (
+  const totalDocuments = documents.length;
 
-      <div className="knowledge-page">
+  const totalFavorites =
+    documents.filter(
+      (d) => d.is_favorite
+    ).length;
 
-        <div className="knowledge-header">
+  const categories = useMemo(() => {
+    const unique = [
+      ...new Set(
+        documents
+          .map((d) => d.category)
+          .filter(Boolean)
+      ),
+    ];
 
-          <div>
+    return ["All", ...unique];
+  }, [documents]);
 
-            <h1>
-              Knowledge Library
-            </h1>
+  const totalCategories =
+    categories.length - 1;
+      return (
+    <div className="knowledge-page">
 
-            <p>
-              SOPs, Manuals, Work Instructions,
-              Machine Guides and Technical Documents
-            </p>
+      {/* ================= HERO ================= */}
 
-          </div>
+      <section className="knowledge-hero">
 
-         
+        <div>
 
-       {canUpload && (
-  <Link
-    to="/upload-knowledge"
-    className="upload-button"
-  >
-    + Upload Knowledge
-  </Link>
-)}
+          <span className="hero-tag">
+            Enterprise Knowledge Hub
+          </span>
 
-          
+          <h1>Knowledge Library</h1>
+
+          <p>
+            Store, organize and access SOPs, Manuals,
+            Work Instructions, Machine Guides and
+            Technical Documents from one centralized
+            industrial knowledge repository.
+          </p>
 
         </div>
 
-        <div className="knowledge-search">
+        {canUpload && (
+
+          <Link
+            to="/upload-knowledge"
+            className="upload-button"
+          >
+            <FaUpload />
+
+            Upload Knowledge
+
+          </Link>
+
+        )}
+
+      </section>
+
+      {/* ================= STATS ================= */}
+
+      <section className="knowledge-stats">
+
+        <div className="knowledge-stat-card">
+
+          <div className="stat-icon blue">
+
+            <FaBookOpen />
+
+          </div>
+
+          <div>
+
+            <h2>{totalDocuments}</h2>
+
+            <p>Total Documents</p>
+
+          </div>
+
+        </div>
+
+        <div className="knowledge-stat-card">
+
+          <div className="stat-icon purple">
+
+            <FaFileAlt />
+
+          </div>
+
+          <div>
+
+            <h2>{totalCategories}</h2>
+
+            <p>Categories</p>
+
+          </div>
+
+        </div>
+
+        <div className="knowledge-stat-card">
+
+          <div className="stat-icon green">
+
+            <FaTools />
+
+          </div>
+
+          <div>
+
+            <h2>
+
+              {
+                documents.filter(
+                  (doc) => doc.status === "Approved"
+                ).length
+              }
+
+            </h2>
+
+            <p>Approved Files</p>
+
+          </div>
+
+        </div>
+
+        <div className="knowledge-stat-card">
+
+          <div className="stat-icon orange">
+
+            <FaStar />
+
+          </div>
+
+          <div>
+
+            <h2>{totalFavorites}</h2>
+
+            <p>Favorites</p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ================= SEARCH ================= */}
+
+      <section className="knowledge-toolbar">
+
+        <div className="search-box">
+
+          <FaSearch className="search-icon" />
 
           <input
             type="text"
-            placeholder="Search documents..."
+            placeholder="Search knowledge, manuals, SOPs, machine guides..."
             value={search}
             onChange={(e) =>
               setSearch(e.target.value)
@@ -149,49 +288,97 @@ function KnowledgeLibrary() {
 
         </div>
 
-        {loading ? (
+      </section>
 
-          <div className="loading-box">
+      {/* ================= CATEGORY FILTER ================= */}
 
-            Loading Knowledge Library...
+      <section className="category-filter">
 
-          </div>
+        {categories.map((cat) => (
 
-        ) : filteredDocuments.length === 0 ? (
+          <button
+            key={cat}
+            className={
+              selectedCategory === cat
+                ? "category-chip active"
+                : "category-chip"
+            }
+            onClick={() =>
+              setSelectedCategory(cat)
+            }
+          >
+            {cat}
+          </button>
 
-          <div className="empty-box">
+        ))}
 
-            <h2>No Documents Found</h2>
+      </section>
+            {/* ================= CONTENT ================= */}
 
-            <p>
+      {loading ? (
 
-              Experts haven't uploaded any
-              knowledge yet.
+        <div className="loading-box">
+          Loading Knowledge Library...
+        </div>
 
-            </p>
+      ) : filteredDocuments.length === 0 ? (
 
-          </div>
+        <div className="empty-box">
 
-        ) : (
+          <FaBookOpen
+            style={{
+              fontSize: "60px",
+              color: "#3B82F6",
+              marginBottom: "20px",
+            }}
+          />
 
-          <div className="knowledge-grid-container">
-            <div className="knowledge-grid">
-              {filteredDocuments.map((doc) => (
-                <KnowledgeCard
-                  key={doc.id}
-                  item={doc}
-                  onDelete={deleteDocument}
-                  toggleFavorite={toggleFavorite}
-                />
-              ))}
-            </div>
-          </div>
+          <h2>No Knowledge Found</h2>
 
-        )}
+          <p>
+            No documents match your search or filter.
+            Upload SOPs, manuals and technical documents
+            to start building your industrial knowledge base.
+          </p>
 
-      </div>
+          {canUpload && (
 
+            <Link
+              to="/upload-knowledge"
+              className="upload-button"
+              style={{
+                width: "fit-content",
+                margin: "30px auto 0",
+              }}
+            >
+              <FaUpload />
+              Upload First Document
+            </Link>
 
+          )}
+
+        </div>
+
+      ) : (
+
+        <section className="knowledge-grid">
+
+          {filteredDocuments.map((doc) => (
+
+            <KnowledgeCard
+              key={doc.id}
+              item={doc}
+              onDelete={deleteDocument}
+              toggleFavorite={toggleFavorite}
+            />
+
+          ))}
+
+        </section>
+
+      )}
+
+    </div>
   );
 }
 

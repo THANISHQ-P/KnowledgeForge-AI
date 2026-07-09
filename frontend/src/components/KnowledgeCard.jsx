@@ -1,103 +1,215 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-function KnowledgeCard({ item, onDelete, toggleFavorite }) {
+import {
+  FaBook,
+  FaIndustry,
+  FaBuilding,
+  FaCalendarAlt,
+  FaUserTie,
+  FaCheckCircle,
+  FaClock,
+  FaHeart,
+  FaRegHeart,
+  FaEye,
+  FaDownload,
+  FaFilePdf,
+  FaTrash,
+} from "react-icons/fa";
 
+function KnowledgeCard({
+  item,
+  onDelete,
+  toggleFavorite,
+}) {
   const { role } = useAuth();
 
-  return (
+  const status =
+    item.status || "Pending";
 
+  const category =
+    item.category || "Document";
+
+  return (
     <div className="knowledge-card">
 
-      <div className="knowledge-card-header">
+      {/* Category */}
 
-        <h3>{item.title}</h3>
+      <div className="knowledge-card-top">
+
+        <span className="category-badge">
+          {category}
+        </span>
+
+        <button
+          className="favorite-icon"
+          onClick={() =>
+            toggleFavorite(
+              item.id,
+              item.is_favorite
+            )
+          }
+        >
+          {item.is_favorite ? (
+            <FaHeart />
+          ) : (
+            <FaRegHeart />
+          )}
+        </button>
 
       </div>
+
+      {/* Title */}
+
+      <h2 className="knowledge-title">
+        {item.title}
+      </h2>
+
+      {/* Information */}
 
       <div className="knowledge-info">
 
-        <p>
-          <strong>Machine :</strong> {item.machine_name || "-"}
-        </p>
+        <div className="info-row">
 
-        <p>
-          <strong>Expert :</strong> {item.uploaded_by || "-"}
-        </p>
+          <FaIndustry />
 
-        <p>
-          <strong>Uploaded At :</strong>{" "}
-          {item.created_at
-            ? new Date(item.created_at).toLocaleDateString()
-            : "-"}
-        </p>
+          <span>
+            {item.machine_name ||
+              "No Machine"}
+          </span>
 
-        <p>
-          <strong>Uploaded By :</strong> {item.uploaded_by || "-"}
-        </p>
+        </div>
 
-        <p>
-          <strong>Status :</strong> {item.status || "Pending"}
-        </p>
+        <div className="info-row">
 
-        <p>
-          <strong>Favorite :</strong>{" "}
-          {item.is_favorite ? "⭐ Yes" : "☆ No"}
-        </p>
+          <FaBuilding />
+
+          <span>
+            {item.department ||
+              "General"}
+          </span>
+
+        </div>
+
+        <div className="info-row">
+
+          <FaUserTie />
+
+          <span>
+            {item.uploaded_by ||
+              "Unknown"}
+          </span>
+
+        </div>
+
+        <div className="info-row">
+
+          <FaCalendarAlt />
+
+          <span>
+
+            {item.created_at
+              ? new Date(
+                  item.created_at
+                ).toLocaleDateString()
+              : "-"}
+
+          </span>
+
+        </div>
 
       </div>
+
+      {/* Description */}
+
+      <p className="knowledge-description">
+
+        {item.description
+          ? item.description.substring(
+              0,
+              120
+            ) + "..."
+          : "No description available."}
+
+      </p>
+
+      {/* Footer */}
+
+      <div className="knowledge-footer">
+
+        <div
+          className={`status-pill ${status.toLowerCase()}`}
+        >
+          {status === "Approved" ? (
+            <FaCheckCircle />
+          ) : (
+            <FaClock />
+          )}
+
+          {status}
+
+        </div>
+
+      </div>
+
+      {/* Actions */}
 
       <div className="knowledge-actions">
 
         <Link
           to={`/knowledge/${item.id}`}
-          className="view-btn"
+          className="action-btn primary"
         >
-          👁 View Details
+          <FaEye />
+
+          View
+
         </Link>
 
         <a
           href={item.file_url}
           target="_blank"
-          rel="noopener noreferrer"
-          className="pdf-btn"
+          rel="noreferrer"
+          className="action-btn secondary"
         >
-          📄 View PDF
+          <FaFilePdf />
+
+          PDF
+
         </a>
 
         <a
           href={item.file_url}
           download={item.file_name}
-          className="download-btn"
+          className="action-btn success"
         >
-          ⬇ Download
+          <FaDownload />
+
+          Download
+
         </a>
 
-        <button
-          className="favorite-btn"
-          onClick={() =>
-            toggleFavorite(item.id, item.is_favorite)
-          }
-        >
-          {item.is_favorite ? "⭐ Unfavorite" : "☆ Favorite"}
-        </button>
+        {(role === "Admin" ||
+          role === "Expert") && (
 
-        {(role === "Expert" || role === "Admin") && (
           <button
-          
-            className="delete-btn"
-            onClick={() => onDelete(item.id)}
+            className="action-btn danger"
+            onClick={() =>
+              onDelete(item.id)
+            }
           >
-            🗑 Delete
+            <FaTrash />
+
+            Delete
+
           </button>
+
         )}
 
       </div>
 
     </div>
-
   );
-
 }
 
 export default KnowledgeCard;
