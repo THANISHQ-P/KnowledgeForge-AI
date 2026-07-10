@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
-const DEFAULT_MODEL = "gemini-2.5-flash";
+const DEFAULT_MODEL = "gemini-2.0-flash";
 const MAX_RETRIES = 2;
 
 function getAI() {
